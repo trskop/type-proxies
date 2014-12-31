@@ -31,8 +31,8 @@ maybeOf :: Proxy a -> b -> (a -> b) -> Maybe a -> b
 maybeOf Proxy = maybe
 
 -- | Type restricted variant of data constructor 'Just'.
-justOf :: a -> Proxy a -> Maybe a
-justOf a Proxy = Just a
+justOf :: Proxy a -> a -> Maybe a
+justOf Proxy = Just
 
 -- | Type restricted variant of data constructor 'Nothing'.
 nothingOf :: Proxy a -> Maybe a
