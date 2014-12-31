@@ -23,18 +23,51 @@ import Data.Proxy.Functor (inFunctorAsProxyTypeOf)
 
 
 -- | Restrict a type wrapped in 'Maybe' to type of a 'Proxy'.
+--
+-- Example:
+--
+-- @
+-- \x -> 'Just' x `inMaybeAsProxyTypeOf` 'Data.Proxy.Word.word8'
+--     :: 'Data.Word.Word8' -> 'Maybe' 'Data.Word.Word8'
+-- @
+--
+-- Above example can be simplified by using function 'justOf':
+--
+-- @
+-- 'justOf' 'Data.Proxy.Word.word8'
+--     :: 'Data.Word.Word8' -> 'Maybe' 'Data.Word.Word8'
+-- @
 inMaybeAsProxyTypeOf :: Maybe a -> Proxy a -> Maybe a
 inMaybeAsProxyTypeOf = inFunctorAsProxyTypeOf
 
 -- | Type restricted variant of function 'maybe'.
+--
+-- Examples:
+--
+-- @
+-- 'maybeOf' 'Data.Proxy.Word.word'
+--     :: b -> ('Data.Word.Word' -> b) -> 'Maybe' 'Data.Word.Word' -> b
+-- @
 maybeOf :: Proxy a -> b -> (a -> b) -> Maybe a -> b
 maybeOf Proxy = maybe
 
 -- | Type restricted variant of data constructor 'Just'.
+--
+-- Examples:
+--
+-- @
+-- 'justOf' 'Data.Proxy.Int.int8'
+--     :: 'Data.Int.Int8' -> 'Maybe' 'Data.Int.Int8'
+-- @
 justOf :: Proxy a -> a -> Maybe a
 justOf Proxy = Just
 
 -- | Type restricted variant of data constructor 'Nothing'.
+--
+-- @
+-- 'nothingOf' 'Data.Proxy.String.string'
+--     :: 'Maybe' 'Data.String.String'
+-- @
 nothingOf :: Proxy a -> Maybe a
 nothingOf Proxy = Nothing
 
