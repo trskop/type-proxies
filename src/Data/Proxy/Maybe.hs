@@ -12,7 +12,16 @@
 -- Concrete proxies for 'Maybe' type.
 module Data.Proxy.Maybe
     (
+      inMaybeAsProxyTypeOf
 
+    -- * Restricted Constructors
+    , justOf
+    , nothingOf
+
+    -- * Catamorphisms for Maybe
+    , maybeOf
+    , fromMaybeOf
+    , catMaybesOf
     )
   where
 
