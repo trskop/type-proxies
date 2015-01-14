@@ -27,7 +27,8 @@ library
   default-language:     Haskell2010
 
   exposed-modules:
-      Data.Proxy.Functor
+      Data.Proxy.Exception
+    , Data.Proxy.Functor
     , Data.Proxy.Int
     , Data.Proxy.Maybe
     , Data.Proxy.String
