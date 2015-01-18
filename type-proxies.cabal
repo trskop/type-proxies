@@ -33,6 +33,7 @@ library
     , Data.Proxy.Functor
     , Data.Proxy.Int
     , Data.Proxy.Maybe
+    , Data.Proxy.Monoid
     , Data.Proxy.String
     , Data.Proxy.Word
 
