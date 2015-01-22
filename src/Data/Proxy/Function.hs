@@ -19,7 +19,7 @@ module Data.Proxy.Function
     )
   where
 
-import Data.Function (const, flip, id)
+import Data.Function (const, flip)
 import Data.Proxy (Proxy(Proxy), asProxyTypeOf)
 
 
