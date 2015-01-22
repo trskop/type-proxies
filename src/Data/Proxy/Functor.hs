@@ -13,6 +13,8 @@
 module Data.Proxy.Functor
     (
       inFunctorAsProxyTypeOf
+    , functorProxy
+    , functorProxyOf
     )
   where
 
@@ -23,3 +25,23 @@ import Data.Proxy (Proxy(Proxy))
 -- | Restrict a type wrapped in a 'Functor' to type of a 'Proxy'.
 inFunctorAsProxyTypeOf :: Functor f => f a -> Proxy a -> f a
 inFunctorAsProxyTypeOf fa Proxy = fa
+
+-- | Type proxy for a 'Functor'. This can be used to force functor restriction
+-- on something.
+--
+-- @
+-- \\x -> x `Data.Proxy.asProxyTypeOf` 'functorProxy'
+--     :: 'Functor' f => f a -> f a
+-- @
+functorProxy :: Functor f => Proxy (f a)
+functorProxy = Proxy
+
+-- | Type proxy for a 'Functor' where value wrapped inside is restricted by
+-- its own type proxy.
+--
+-- @
+-- 'functorProxyOf' 'Data.Proxy.Int.int'
+--     :: 'Functor' f => 'Proxy' (f 'Data.Int.Int')
+-- @
+functorProxyOf :: Functor f => Proxy a -> Proxy (f a)
+functorProxyOf Proxy = Proxy
