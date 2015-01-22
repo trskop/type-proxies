@@ -27,7 +27,8 @@ library
   default-language:     Haskell2010
 
   exposed-modules:
-      Data.Proxy.Dynamic
+      Data.Proxy.Bool
+    , Data.Proxy.Dynamic
     , Data.Proxy.Exception
     , Data.Proxy.ExitCode
     , Data.Proxy.Function
