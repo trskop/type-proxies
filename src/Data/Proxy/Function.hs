@@ -40,8 +40,8 @@ idOf = flip asProxyTypeOf
 -- | Type restricted variant of 'const'.
 --
 -- @
--- 'forget' 'Data.Proxy.Exception.ioException' 'Data.Maybe.Nothing'
---     :: 'Control.Exception.IOException' -> 'Data.Maybe.Maybe' a
+-- 'forget' 'Data.Proxy.Exception.ioException' (return Nothing)
+--     :: 'Control.Exception.IOException' -> IO (Maybe a)
 -- @
 forget :: Proxy b -> a -> b -> a
 forget Proxy = const
@@ -49,8 +49,8 @@ forget Proxy = const
 -- | Type restricted version of @'flip' 'const'@.
 --
 -- @
--- 'Data.Proxy.Exception.ioException' `thatForgottenReturn` 'Data.Maybe.Nothing'
---     :: 'Control.Exception.IOException' -> 'Data.Maybe.Maybe' a
+-- 'Data.Proxy.Exception.ioException' `thatForgotten` return Nothing
+--     :: 'Control.Exception.IOException' -> IO (Maybe a)
 -- @
-thatForgottenReturn :: Proxy a => a -> b -> b
-thatForgottenReturn Proxy = flip const
+thatForgotten :: Proxy a => a -> b -> b
+thatForgotten Proxy = flip const
