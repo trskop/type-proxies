@@ -30,6 +30,7 @@ library
       Data.Proxy.Dynamic
     , Data.Proxy.Exception
     , Data.Proxy.ExitCode
+    , Data.Proxy.Function
     , Data.Proxy.Functor
     , Data.Proxy.Int
     , Data.Proxy.Maybe
