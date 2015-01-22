@@ -15,7 +15,7 @@ module Data.Proxy.Function
     (
       idOf
     , forget
-    , thatForgottenReturn
+    , thatForgotten
     )
   where
 
@@ -34,7 +34,7 @@ import Data.Proxy (Proxy(Proxy), asProxyTypeOf)
 -- @
 -- 'idOf' 'Data.Proxy.Word.word16' :: 'Data.Word.Word16' -> 'Data.Word.Word16'
 -- @
-idOf :: Proxy a => a -> a
+idOf :: Proxy a -> a -> a
 idOf = flip asProxyTypeOf
 
 -- | Type restricted variant of 'const'.
@@ -52,5 +52,5 @@ forget Proxy = const
 -- 'Data.Proxy.Exception.ioException' `thatForgotten` return Nothing
 --     :: 'Control.Exception.IOException' -> IO (Maybe a)
 -- @
-thatForgotten :: Proxy a => a -> b -> b
+thatForgotten :: Proxy a -> a -> b -> b
 thatForgotten Proxy = flip const
