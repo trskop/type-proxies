@@ -13,8 +13,8 @@
 module Data.Proxy.Maybe
     (
       inMaybeAsProxyTypeOf
-    , maybeProxy
-    , maybeProxyOf
+    , aMaybe
+    , aMaybeOf
 
     -- * Restricted Constructors
     , justOf
@@ -55,21 +55,21 @@ inMaybeAsProxyTypeOf = inFunctorAsProxyTypeOf
 -- 'Control.Monad.Monad' and wants it to be a 'Maybe' monad.
 --
 -- @
--- \\x -> return x `Data.Proxy.asProxyTypeOf` 'maybeProxy'
+-- \\x -> return x `Data.Proxy.asProxyTypeOf` 'aMaybe'
 --     :: a -> Maybe a
 -- @
-maybeProxy :: Proxy (Maybe a)
-maybeProxy = Proxy
+aMaybe :: Proxy (Maybe a)
+aMaybe = Proxy
 
 -- | Type proxy for @'Maybe' a@ where @a@ is restricted by its own
 -- type proxy.
 --
 -- @
--- 'maybeProxyOf' 'Data.Proxy.Word.word8'
+-- 'aMaybeOf' 'Data.Proxy.Word.word8'
 --     :: 'Proxy' ('Maybe' 'Data.Word.Word8')
 -- @
-maybeProxyOf :: Proxy a -> Proxy (Maybe a)
-maybeProxyOf Proxy = Proxy
+aMaybeOf :: Proxy a -> Proxy (Maybe a)
+aMaybeOf Proxy = Proxy
 
 -- | Type restricted variant of function 'maybe'.
 --
