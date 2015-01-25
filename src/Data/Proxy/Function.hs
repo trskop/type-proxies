@@ -18,6 +18,12 @@ module Data.Proxy.Function
     , aFunction2
     , aFunction3
 
+    -- * Restrict Functions Using Type Proxies
+    , resultOf
+    , hasResultOf
+    , argumentOf
+    , hasArgumentOf
+
     -- * Restricted Versions of Standard Functions
     , idOf
     , forget
@@ -28,7 +34,7 @@ module Data.Proxy.Function
     )
   where
 
-import Data.Function (const, flip)
+import Data.Function ((.), const, flip, id)
 import Data.Proxy (Proxy(Proxy), asProxyTypeOf)
 
 
@@ -46,6 +52,44 @@ aFunction2 = Proxy
 -- this type proxy says is that it is at least ternary function.
 aFunction3 :: Proxy (a -> b -> c -> d)
 aFunction3 = Proxy
+
+-- | Restrict type of result of a function. Flipped version of 'resultOf'.
+--
+-- @
+-- \\f -> f `hasResultOf` 'Data.Proxy.Either.anEitherOf' 'Data.Proxy.String.string' 'Data.Proxy.Int.int'
+--     :: (a -> Either String Word64) -> a -> Either String Int
+-- @
+--
+-- @
+-- 'Data.Typeable.cast' `hasResultOf` 'Data.Proxy.Maybe.aMaybeOf' 'Data.Proxy.Int.int'
+--     :: Typeable a => a -> Maybe Int
+-- @
+hasResultOf :: (a -> b) -> Proxy b -> a -> b
+hasResultOf f Proxy = f
+
+-- | Restrict type of result of a function. Flipped version of 'hasResultOf'.
+--
+-- @
+-- 'resultOf' ('Data.Proxy.Either.anEitherOf' 'Data.Proxy.String.string' 'Data.Proxy.Int.int')
+--     :: (a -> Either String Word64) -> a -> Either String Int
+-- @
+--
+-- @
+-- 'resultOf' ('Data.Proxy.Maybe.aMaybeOf' 'Data.Proxy.Int.int') 'Data.Typeable.cast'
+--     :: Typeable a => a -> Maybe Int
+-- @
+resultOf :: Proxy b -> (a -> b) -> a -> b
+resultOf Proxy = id
+
+-- | Restrict type of an argument of a function. Flipped variant of
+-- 'hasArgumentOf'.
+argumentOf :: Proxy a -> (a -> b) -> a -> b
+argumentOf Proxy = id
+
+-- | Restrict type of an argument of a function. Flipped variant of
+-- 'argumentOf'.
+hasArgumentOf :: (a -> b) -> Proxy a -> a -> b
+hasArgumentOf f Proxy = f
 
 -- | Type restricted identity function 'id' defined as:
 --
@@ -68,7 +112,7 @@ idOf = flip asProxyTypeOf
 --     :: 'Control.Exception.IOException' -> IO (Maybe a)
 -- @
 forget :: Proxy b -> a -> b -> a
-forget Proxy = const
+forget p = argumentOf p . const
 
 -- | Type restricted version of @'flip' 'const'@.
 --
@@ -77,7 +121,7 @@ forget Proxy = const
 --     :: 'Control.Exception.IOException' -> IO (Maybe a)
 -- @
 thatForgotten :: Proxy a -> a -> b -> b
-thatForgotten Proxy = flip const
+thatForgotten p = p `argumentOf` flip const
 
 -- | Alias for 'asProxyTypeOf'.
 is :: a -> Proxy a -> a
