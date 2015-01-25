@@ -10,7 +10,26 @@ Proxies
 Description
 -----------
 
-Concrete type proxies for various data types.
+Concrete type proxies for various data types. Type proxies allows us to use
+types as a values, e.g. passing it as an argument of a function.
+
+````Haskell
+-- | Run 'someAction' and wrap its result in 'Just', if it raises an exception,
+-- then return 'Nothing'.
+doSomeAction :: IO (Maybe Result)
+doSomeAction = (Just <$> someAction)
+    `catch` forget ioException (return Nothing)
+````
+
+Notice that `forget` function is a type restricted `const`, its type signature
+is:
+
+````Haskell
+forget :: Proxy b -> a -> b -> a
+````
+
+As you can see it takes type proxy argument and that restricts the type of
+ignored argument.
 
 
 
