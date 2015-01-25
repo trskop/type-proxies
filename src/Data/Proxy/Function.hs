@@ -13,9 +13,13 @@
 -- Type restricted variants of functions from "Data.Function" module, and more.
 module Data.Proxy.Function
     (
-      idOf
+    -- * Restricted Versions of Standard Functions
+    , idOf
     , forget
     , thatForgotten
+
+    -- * Utilities
+    , is
     )
   where
 
@@ -54,3 +58,7 @@ forget Proxy = const
 -- @
 thatForgotten :: Proxy a -> a -> b -> b
 thatForgotten Proxy = flip const
+
+-- | Alias for 'asProxyTypeOf'.
+is :: a -> Proxy a -> a
+is = asProxyTypeOf
