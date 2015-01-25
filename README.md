@@ -13,6 +13,8 @@ Description
 Concrete type proxies for various data types. Type proxies allows us to use
 types as a values, e.g. passing it as an argument of a function.
 
+Small example where this can be usefull:
+
 ````Haskell
 -- | Run 'someAction' and wrap its result in 'Just', if it raises an exception,
 -- then return 'Nothing'.
@@ -21,7 +23,7 @@ doSomeAction = (Just <$> someAction)
     `catch` forget ioException (return Nothing)
 ````
 
-Notice that `forget` function is a type restricted `const`, its type signature
+Notice that `forget` function is a type restricted `const`; its type signature
 is:
 
 ````Haskell
