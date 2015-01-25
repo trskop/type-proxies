@@ -29,6 +29,7 @@ library
   exposed-modules:
       Data.Proxy.Bool
     , Data.Proxy.Dynamic
+    , Data.Proxy.Either
     , Data.Proxy.Exception
     , Data.Proxy.ExitCode
     , Data.Proxy.Function
