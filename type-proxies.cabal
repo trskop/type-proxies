@@ -35,6 +35,7 @@ library
     , Data.Proxy.Function
     , Data.Proxy.Functor
     , Data.Proxy.Int
+    , Data.Proxy.List
     , Data.Proxy.Maybe
     , Data.Proxy.Monoid
     , Data.Proxy.String
