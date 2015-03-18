@@ -32,6 +32,7 @@ library
     , Data.Proxy.Either
     , Data.Proxy.Exception
     , Data.Proxy.ExitCode
+    , Data.Proxy.Extra
     , Data.Proxy.Function
     , Data.Proxy.Functor
     , Data.Proxy.Int

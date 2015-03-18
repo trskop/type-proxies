@@ -28,9 +28,6 @@ module Data.Proxy.Function
     , idOf
     , forget
     , thatForgotten
-
-    -- * Utilities
-    , is
     )
   where
 
@@ -122,7 +119,3 @@ forget p = argumentOf p . const
 -- @
 thatForgotten :: Proxy a -> a -> b -> b
 thatForgotten p = p `argumentOf` flip const
-
--- | Alias for 'asProxyTypeOf'.
-is :: a -> Proxy a -> a
-is = asProxyTypeOf
