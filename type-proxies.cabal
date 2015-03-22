@@ -40,6 +40,7 @@ library
     , Data.Proxy.Maybe
     , Data.Proxy.Monoid
     , Data.Proxy.String
+    , Data.Proxy.Tuple
     , Data.Proxy.Word
 
   other-extensions:     NoImplicitPrelude
