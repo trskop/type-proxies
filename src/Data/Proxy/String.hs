@@ -26,9 +26,11 @@ import Data.Proxy (Proxy(Proxy), asProxyTypeOf)
 import Data.String (String, IsString(fromString))
 
 
+-- | Proxy data type for 'String' (@['Data.Char.Char']@).
 string :: Proxy String
 string = Proxy
 
+-- | Proxy for a 'IsString' instance.
 aString :: IsString s => Proxy s
 aString = Proxy
 
