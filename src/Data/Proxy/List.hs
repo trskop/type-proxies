@@ -17,6 +17,7 @@ module Data.Proxy.List
     , listOf
     , consOf
     , unconsOf
+    , headOf
     )
   where
 
@@ -41,3 +42,8 @@ unconsOf p xs = uncons (xs `asProxyTypeOf` aListOf p)
   where
     uncons []       = Nothing
     uncons (y : ys) = Just (y, ys)
+
+headOf :: Proxy a -> [a] -> Maybe a
+headOf p xs = case unconsOf p xs of
+    Nothing     -> Nothing
+    Just (x, _) -> Just x
