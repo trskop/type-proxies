@@ -14,41 +14,50 @@ module Data.Proxy.Monoid
     ( aMonoid
 
     -- * All and Any
-    , all
-    , any
+    , anAll
+    , anAny
 
     -- * Dual
-    , dualProxyOf
+    , aDual
+    , aDualOf
     , dualOf
 
     -- * Endo
-    , endoProxyOf
+    , anEndo
+    , anEndoOf
     , endoOf
+    , appEndoTo
+    , runEndoOn
 
     -- * First
-    , firstProxyOf
+    , aFirst
+    , aFirstOf
     , firstOf
 
     -- * Last
-    , lastProxyOf
+    , aLast
+    , aLastOf
     , lastOf
 
     -- * Product
-    , productProxyOf
+    , aProduct
+    , aProductOf
     , productOf
 
     -- * Sum
-    , sumProxyOf
+    , aSum
+    , aSumOf
     , sumOf
     )
   where
 
+import Data.Function (flip)
 import Data.Maybe (Maybe)
 import Data.Monoid
     ( All
     , Any
     , Dual(Dual)
-    , Endo(Endo)
+    , Endo(Endo, appEndo)
     , First(First)
     , Last(Last)
     , Monoid
@@ -64,20 +73,24 @@ aMonoid = Proxy
 -- {{{ All and Any ------------------------------------------------------------
 
 -- | Type proxy for 'All' data type.
-all :: Proxy All
-all = Proxy
+anAll :: Proxy All
+anAll = Proxy
 
 -- | Type proxy for 'Any' data type.
-any :: Proxy Any
-any = Proxy
+anAny :: Proxy Any
+anAny = Proxy
 
 -- }}} All and Any ------------------------------------------------------------
 
 -- {{{ Dual -------------------------------------------------------------------
 
--- | Parameterise Type proxy for 'Any' data type.
-dualProxyOf :: Proxy a -> Proxy (Dual a)
-dualProxyOf Proxy = Proxy
+-- | Type proxy for 'Dual' data type.
+aDual :: Proxy (Dual a)
+aDual = Proxy
+
+-- | Restricted type proxy for 'Dual' data type.
+aDualOf :: Proxy a -> Proxy (Dual a)
+aDualOf Proxy = Proxy
 
 -- | Constructor of 'Dual' parameterised by a type proxy of a value.
 --
@@ -92,19 +105,35 @@ dualOf Proxy = Dual
 
 -- {{{ Endo -------------------------------------------------------------------
 
-endoProxyOf :: Proxy a -> Proxy (Endo a)
-endoProxyOf Proxy = Proxy
+-- | Proxy for 'Endo' data type.
+anEndo :: Proxy (Endo a)
+anEndo = Proxy
+
+-- | Proxy for 'Endo' data type that restrict the type endo operates on.
+anEndoOf :: Proxy a -> Proxy (Endo a)
+anEndoOf Proxy = Proxy
 
 -- | Constructor of 'Endo' parameterised by a type proxy of a value.
 endoOf :: Proxy a -> (a -> a) -> Endo a
 endoOf Proxy = Endo
 
+-- | Type restricted version of 'appEndo'.
+appEndoTo :: Proxy a -> Endo a -> a -> a
+appEndoTo Proxy = appEndo
+
+-- | Type restricted version of flipped 'appEndo'.
+runEndoOn :: Proxy a -> a -> Endo a -> a
+runEndoOn Proxy = flip appEndo
+
 -- }}} Endo -------------------------------------------------------------------
 
 -- {{{ First ------------------------------------------------------------------
 
-firstProxyOf :: Proxy a -> Proxy (First a)
-firstProxyOf Proxy = Proxy
+aFirst :: Proxy (First a)
+aFirst = Proxy
+
+aFirstOf :: Proxy a -> Proxy (First a)
+aFirstOf Proxy = Proxy
 
 -- | Constructor of 'First' parameterised by a type proxy of a value.
 firstOf :: Proxy a -> Maybe a -> First a
@@ -114,8 +143,11 @@ firstOf Proxy = First
 
 -- {{{ Last -------------------------------------------------------------------
 
-lastProxyOf :: Proxy a -> Proxy (Last a)
-lastProxyOf Proxy = Proxy
+aLast :: Proxy (Last a)
+aLast = Proxy
+
+aLastOf :: Proxy a -> Proxy (Last a)
+aLastOf Proxy = Proxy
 
 -- | Constructor of 'Last' parameterised by a type proxy of a value.
 lastOf :: Proxy a -> Maybe a -> Last a
@@ -125,8 +157,11 @@ lastOf Proxy = Last
 
 -- {{{ Product ----------------------------------------------------------------
 
-productProxyOf :: Proxy a -> Proxy (Product a)
-productProxyOf Proxy = Proxy
+aProduct :: Proxy (Product a)
+aProduct = Proxy
+
+aProductOf :: Proxy a -> Proxy (Product a)
+aProductOf Proxy = Proxy
 
 -- | Constructor of 'Product' parameterised by a type proxy of a value.
 --
@@ -140,8 +175,11 @@ productOf Proxy = Product
 
 -- {{{ Sum --------------------------------------------------------------------
 
-sumProxyOf :: Proxy a -> Proxy (Sum a)
-sumProxyOf Proxy = Proxy
+aSum :: Proxy (Sum a)
+aSum = Proxy
+
+aSumOf :: Proxy a -> Proxy (Sum a)
+aSumOf Proxy = Proxy
 
 -- | Constructor of 'Sum' parameterised by a type proxy of a value.
 --
