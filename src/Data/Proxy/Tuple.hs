@@ -21,14 +21,15 @@ module Data.Proxy.Tuple
     )
   where
 
-import Data.Function ((.))
-import Data.Proxy (Proxy(Proxy), asProxyTypeOf)
+import Data.Function (id)
+import Data.Proxy (Proxy(Proxy))
 import Data.Tuple (fst, snd)
 
 
 -- | Proxy for a pair.
 aPair :: Proxy (a, b)
 aPair = Proxy
+{-# INLINE aPair #-}
 
 -- | Proxy for a pair with restriction on both type parameters.
 --
@@ -41,23 +42,29 @@ aPair = Proxy
 -- @
 aPairOf :: Proxy a -> Proxy b -> Proxy (a, b)
 aPairOf Proxy Proxy = Proxy
+{-# INLINE aPairOf #-}
 
 -- | Identity on pairs that restrict type of its first element.
 firstOf :: Proxy a -> (a, b) -> (a, b)
-firstOf p = (`asProxyTypeOf` aPairOf p Proxy)
+firstOf Proxy = id -- \p -> (`asProxyTypeOf` aPairOf p Proxy)
+{-# INLINE firstOf #-}
 
 -- | Identity on pairs that restrict type of its second element.
 secondOf :: Proxy b -> (a, b) -> (a, b)
-secondOf p = (`asProxyTypeOf` aPairOf Proxy p)
+secondOf Proxy = id -- \p ->`asProxyTypeOf` aPairOf Proxy p)
+{-# INLINE secondOf #-}
 
 -- | Identity on pairs that restrict type of its both elements.
 bothOf :: Proxy a -> (a, a) -> (a, a)
-bothOf p = (`asProxyTypeOf` aPairOf p p)
+bothOf Proxy = id -- \p ->`asProxyTypeOf` aPairOf p p)
+{-# INLINE bothOf #-}
 
 -- | Variant of 'fst' with type restriction on first element of a pair.
 fstOf :: Proxy a -> (a, b) -> a
-fstOf p = (`asProxyTypeOf` p) . fst
+fstOf Proxy = fst -- \p -> (`asProxyTypeOf` p) . fst
+{-# INLINE fstOf #-}
 
 -- | Variant of 'snd' with type restriction on second element of a pair.
 sndOf :: Proxy b -> (a, b) -> b
-sndOf p = (`asProxyTypeOf` p) . snd
+sndOf Proxy = snd -- \p -> (`asProxyTypeOf` p) . snd
+{-# INLINE sndOf #-}

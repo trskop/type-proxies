@@ -20,3 +20,4 @@ import Data.Proxy (Proxy(Proxy))
 -- | Type proxy for 'Bool'.
 bool :: Proxy Bool
 bool = Proxy
+{-# INLINE bool #-}

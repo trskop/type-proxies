@@ -31,24 +31,27 @@ module Data.Proxy.Function
     )
   where
 
-import Data.Function ((.), const, flip, id)
-import Data.Proxy (Proxy(Proxy), asProxyTypeOf)
+import Data.Function (const, flip, id)
+import Data.Proxy (Proxy(Proxy))
 
 
 -- | Type proxy for unary function. Note that @b@ may be a function too. All
 -- this type proxy says is that it is at least unary function.
 aFunction :: Proxy (a -> b)
 aFunction = Proxy
+{-# INLINE aFunction #-}
 
 -- | Type proxy for binary function. Note that @b@ may be a function too. All
 -- this type proxy says is that it is at least binary function.
 aFunction2 :: Proxy (a -> b -> c)
 aFunction2 = Proxy
+{-# INLINE aFunction2 #-}
 
 -- | Type proxy for ternary function. Note that @b@ may be a function too. All
 -- this type proxy says is that it is at least ternary function.
 aFunction3 :: Proxy (a -> b -> c -> d)
 aFunction3 = Proxy
+{-# INLINE aFunction3 #-}
 
 -- | Restrict type of result of a function. Flipped version of 'resultOf'.
 --
@@ -62,7 +65,8 @@ aFunction3 = Proxy
 --     :: Typeable a => a -> Maybe Int
 -- @
 hasResultOf :: (a -> b) -> Proxy b -> a -> b
-hasResultOf f Proxy = f
+hasResultOf = const
+{-# INLINE hasResultOf #-}
 
 -- | Restrict type of result of a function. Flipped version of 'hasResultOf'.
 --
@@ -77,16 +81,19 @@ hasResultOf f Proxy = f
 -- @
 resultOf :: Proxy b -> (a -> b) -> a -> b
 resultOf Proxy = id
+{-# INLINE resultOf #-}
 
 -- | Restrict type of an argument of a function. Flipped variant of
 -- 'hasArgumentOf'.
 argumentOf :: Proxy a -> (a -> b) -> a -> b
 argumentOf Proxy = id
+{-# INLINE argumentOf #-}
 
 -- | Restrict type of an argument of a function. Flipped variant of
 -- 'argumentOf'.
 hasArgumentOf :: (a -> b) -> Proxy a -> a -> b
-hasArgumentOf f Proxy = f
+hasArgumentOf = const
+{-# INLINE hasArgumentOf #-}
 
 -- | Type restricted identity function 'id' defined as:
 --
@@ -100,7 +107,8 @@ hasArgumentOf f Proxy = f
 -- 'idOf' 'Data.Proxy.Word.word16' :: 'Data.Word.Word16' -> 'Data.Word.Word16'
 -- @
 idOf :: Proxy a -> a -> a
-idOf = flip asProxyTypeOf
+idOf Proxy = id
+{-# INLINE idOf #-}
 
 -- | Type restricted variant of 'const'.
 --
@@ -109,7 +117,8 @@ idOf = flip asProxyTypeOf
 --     :: 'Control.Exception.IOException' -> IO (Maybe a)
 -- @
 forget :: Proxy b -> a -> b -> a
-forget p = argumentOf p . const
+forget Proxy = const -- \p -> argumentOf p . const
+{-# INLINE forget #-}
 
 -- | Type restricted version of @'flip' 'const'@.
 --
@@ -118,4 +127,5 @@ forget p = argumentOf p . const
 --     :: 'Control.Exception.IOException' -> IO (Maybe a)
 -- @
 thatForgotten :: Proxy a -> a -> b -> b
-thatForgotten p = p `argumentOf` flip const
+thatForgotten Proxy = flip const -- \p -> `argumentOf` flip const
+{-# INLINE thatForgotten #-}

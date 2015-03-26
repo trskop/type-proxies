@@ -27,19 +27,24 @@ import Data.Proxy (Proxy(Proxy))
 -- | Type proxy for 'Int'.
 int :: Proxy Int
 int = Proxy
+{-# INLINE int #-}
 
 -- | Type proxy for 'Int8'.
 int8 :: Proxy Int8
 int8 = Proxy
+{-# INLINE int8 #-}
 
 -- | Type proxy for 'Int16'.
 int16 :: Proxy Int16
 int16 = Proxy
+{-# INLINE int16 #-}
 
 -- | Type proxy for 'Int32'.
 int32 :: Proxy Int32
 int32 = Proxy
+{-# INLINE int32 #-}
 
 -- | Type proxy for 'Int64'.
 int64 :: Proxy Int64
 int64 = Proxy
+{-# INLINE int64 #-}

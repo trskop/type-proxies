@@ -20,3 +20,4 @@ import System.Exit (ExitCode)
 -- | Type proxy for 'ExitCode'.
 exitCode :: Proxy ExitCode
 exitCode = Proxy
+{-# INLINE exitCode #-}

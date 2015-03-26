@@ -29,11 +29,14 @@ import Data.String (String, IsString(fromString))
 -- | Proxy data type for 'String' (@['Data.Char.Char']@).
 string :: Proxy String
 string = Proxy
+{-# INLINE string #-}
 
 -- | Proxy for a 'IsString' instance.
 aString :: IsString s => Proxy s
 aString = Proxy
+{-# INLINE aString #-}
 
 -- | Restricted version of 'fromString'.
 fromStringTo :: IsString s => String -> Proxy s -> s
 fromStringTo = asProxyTypeOf . fromString
+{-# INLINE fromStringTo #-}

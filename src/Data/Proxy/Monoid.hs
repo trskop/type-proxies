@@ -69,16 +69,19 @@ import Data.Proxy (Proxy(Proxy))
 
 aMonoid :: Monoid a => Proxy a
 aMonoid = Proxy
+{-# INLINE aMonoid #-}
 
 -- {{{ All and Any ------------------------------------------------------------
 
 -- | Type proxy for 'All' data type.
 anAll :: Proxy All
 anAll = Proxy
+{-# INLINE anAll #-}
 
 -- | Type proxy for 'Any' data type.
 anAny :: Proxy Any
 anAny = Proxy
+{-# INLINE anAny #-}
 
 -- }}} All and Any ------------------------------------------------------------
 
@@ -87,10 +90,12 @@ anAny = Proxy
 -- | Type proxy for 'Dual' data type.
 aDual :: Proxy (Dual a)
 aDual = Proxy
+{-# INLINE aDual #-}
 
 -- | Restricted type proxy for 'Dual' data type.
 aDualOf :: Proxy a -> Proxy (Dual a)
 aDualOf Proxy = Proxy
+{-# INLINE aDualOf #-}
 
 -- | Constructor of 'Dual' parameterised by a type proxy of a value.
 --
@@ -100,6 +105,7 @@ aDualOf Proxy = Proxy
 -- @
 dualOf :: Proxy a -> a -> Dual a
 dualOf Proxy = Dual
+{-# INLINE dualOf #-}
 
 -- }}} Dual -------------------------------------------------------------------
 
@@ -108,22 +114,27 @@ dualOf Proxy = Dual
 -- | Proxy for 'Endo' data type.
 anEndo :: Proxy (Endo a)
 anEndo = Proxy
+{-# INLINE anEndo #-}
 
 -- | Proxy for 'Endo' data type that restrict the type endo operates on.
 anEndoOf :: Proxy a -> Proxy (Endo a)
 anEndoOf Proxy = Proxy
+{-# INLINE anEndoOf #-}
 
 -- | Constructor of 'Endo' parameterised by a type proxy of a value.
 endoOf :: Proxy a -> (a -> a) -> Endo a
 endoOf Proxy = Endo
+{-# INLINE endoOf #-}
 
 -- | Type restricted version of 'appEndo'.
 appEndoTo :: Proxy a -> Endo a -> a -> a
 appEndoTo Proxy = appEndo
+{-# INLINE appEndoTo #-}
 
 -- | Type restricted version of flipped 'appEndo'.
 runEndoOn :: Proxy a -> a -> Endo a -> a
 runEndoOn Proxy = flip appEndo
+{-# INLINE runEndoOn #-}
 
 -- }}} Endo -------------------------------------------------------------------
 
@@ -131,13 +142,16 @@ runEndoOn Proxy = flip appEndo
 
 aFirst :: Proxy (First a)
 aFirst = Proxy
+{-# INLINE aFirst #-}
 
 aFirstOf :: Proxy a -> Proxy (First a)
 aFirstOf Proxy = Proxy
+{-# INLINE aFirstOf #-}
 
 -- | Constructor of 'First' parameterised by a type proxy of a value.
 firstOf :: Proxy a -> Maybe a -> First a
 firstOf Proxy = First
+{-# INLINE firstOf #-}
 
 -- }}} First ------------------------------------------------------------------
 
@@ -145,13 +159,16 @@ firstOf Proxy = First
 
 aLast :: Proxy (Last a)
 aLast = Proxy
+{-# INLINE aLast #-}
 
 aLastOf :: Proxy a -> Proxy (Last a)
 aLastOf Proxy = Proxy
+{-# INLINE aLastOf #-}
 
 -- | Constructor of 'Last' parameterised by a type proxy of a value.
 lastOf :: Proxy a -> Maybe a -> Last a
 lastOf Proxy = Last
+{-# INLINE lastOf #-}
 
 -- }}} Last -------------------------------------------------------------------
 
@@ -159,9 +176,11 @@ lastOf Proxy = Last
 
 aProduct :: Proxy (Product a)
 aProduct = Proxy
+{-# INLINE aProduct #-}
 
 aProductOf :: Proxy a -> Proxy (Product a)
 aProductOf Proxy = Proxy
+{-# INLINE aProductOf #-}
 
 -- | Constructor of 'Product' parameterised by a type proxy of a value.
 --
@@ -170,6 +189,7 @@ aProductOf Proxy = Proxy
 -- @
 productOf :: Proxy a -> a -> Product a
 productOf Proxy = Product
+{-# INLINE productOf #-}
 
 -- }}} Product ----------------------------------------------------------------
 
@@ -177,9 +197,11 @@ productOf Proxy = Product
 
 aSum :: Proxy (Sum a)
 aSum = Proxy
+{-# INLINE aSum #-}
 
 aSumOf :: Proxy a -> Proxy (Sum a)
 aSumOf Proxy = Proxy
+{-# INLINE aSumOf #-}
 
 -- | Constructor of 'Sum' parameterised by a type proxy of a value.
 --
@@ -188,5 +210,6 @@ aSumOf Proxy = Proxy
 -- @
 sumOf :: Proxy a -> a -> Sum a
 sumOf Proxy = Sum
+{-# INLINE sumOf #-}
 
 -- }}} Sum --------------------------------------------------------------------

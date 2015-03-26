@@ -27,10 +27,9 @@ module Data.Proxy.Maybe
     )
   where
 
+import Data.Function (const)
 import Data.Maybe (Maybe(Just, Nothing), catMaybes, maybe, fromMaybe)
 import Data.Proxy (Proxy(Proxy))
-
-import Data.Proxy.Functor (inFunctorAsProxyTypeOf)
 
 
 -- | Restrict a type wrapped in 'Maybe' to type of a 'Proxy'.
@@ -49,7 +48,8 @@ import Data.Proxy.Functor (inFunctorAsProxyTypeOf)
 --     :: 'Data.Word.Word8' -> 'Maybe' 'Data.Word.Word8'
 -- @
 inMaybeAsProxyTypeOf :: Maybe a -> Proxy a -> Maybe a
-inMaybeAsProxyTypeOf = inFunctorAsProxyTypeOf
+inMaybeAsProxyTypeOf = const
+{-# INLINE inMaybeAsProxyTypeOf #-}
 
 -- | Type proxy for 'Maybe'. It can be used in situations where one gets a
 -- 'Control.Monad.Monad' and wants it to be a 'Maybe' monad.
@@ -60,6 +60,7 @@ inMaybeAsProxyTypeOf = inFunctorAsProxyTypeOf
 -- @
 aMaybe :: Proxy (Maybe a)
 aMaybe = Proxy
+{-# INLINE aMaybe #-}
 
 -- | Type proxy for @'Maybe' a@ where @a@ is restricted by its own
 -- type proxy.
@@ -70,6 +71,7 @@ aMaybe = Proxy
 -- @
 aMaybeOf :: Proxy a -> Proxy (Maybe a)
 aMaybeOf Proxy = Proxy
+{-# INLINE aMaybeOf #-}
 
 -- | Type restricted variant of function 'maybe'.
 --
@@ -81,6 +83,7 @@ aMaybeOf Proxy = Proxy
 -- @
 maybeOf :: Proxy a -> b -> (a -> b) -> Maybe a -> b
 maybeOf Proxy = maybe
+{-# INLINE maybeOf #-}
 
 -- | Type restricted variant of data constructor 'Just'.
 --
@@ -92,6 +95,7 @@ maybeOf Proxy = maybe
 -- @
 justOf :: Proxy a -> a -> Maybe a
 justOf Proxy = Just
+{-# INLINE justOf #-}
 
 -- | Type restricted variant of data constructor 'Nothing'.
 --
@@ -101,11 +105,14 @@ justOf Proxy = Just
 -- @
 nothingOf :: Proxy a -> Maybe a
 nothingOf Proxy = Nothing
+{-# INLINE nothingOf #-}
 
 -- | Type restricted variant of 'fromMaybe' function.
 fromMaybeOf :: Proxy a -> a -> Maybe a -> a
 fromMaybeOf Proxy = fromMaybe
+{-# INLINE fromMaybeOf #-}
 
 -- | Type restricted variant of 'catMaybes' function.
 catMaybesOf :: Proxy a -> [Maybe a] -> [a]
 catMaybesOf Proxy = catMaybes
+{-# INLINE catMaybesOf #-}
